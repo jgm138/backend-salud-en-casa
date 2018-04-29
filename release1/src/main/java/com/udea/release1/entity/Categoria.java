@@ -19,9 +19,11 @@ public class Categoria {
 	
 	@Id
     @GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name = "pkcategoria")//opcional si se llama igual
 	private Long pkcategoria;
 	
 	@NotNull
+	@Column(name="categoria") //opcional si se llama igual
 	private String categoria;
 	
 	
@@ -75,14 +77,6 @@ public class Categoria {
 		return productos;
 	}
 
-
-
-	public void setProductos(List<Producto> productos) {
-		this.productos = productos;
-	}
-	
-	
-	
 	
 
 }

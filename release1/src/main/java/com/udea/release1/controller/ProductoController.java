@@ -29,6 +29,7 @@ public class ProductoController{
 
 	// -------------------All Productos---------------------------------------------
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@RequestMapping(value = "/producto/", method = RequestMethod.GET)
 	public ResponseEntity<List<Producto>> listAllProductos() {
 		try {

@@ -1,5 +1,7 @@
 package com.udea.release1.entity;
 
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,12 +11,11 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 //import javax.persistence.JoinColumn;
 //import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name = "productos")
@@ -51,6 +52,12 @@ public class Producto {
     @JoinColumn(name="fkcategoria")
     //@JsonBackReference
     private Categoria categoria;
+    
+    
+    @OneToMany(mappedBy="producto", fetch=FetchType.LAZY, cascade = CascadeType.ALL)
+	@Column(nullable = true)
+	//@JsonManagedReference
+	private List<Foto> fotos;
     
 
 	public Long getPkproducto() {
@@ -125,6 +132,17 @@ public class Producto {
 
 	public void setPrecio(float precio) {
 		this.precio = precio;
+	}
+
+
+	public void setCategoria(Categoria categoria) {
+		this.categoria = categoria;
+	}
+
+	
+
+	public List<Foto> getFotos() {
+		return fotos;
 	}
 
 

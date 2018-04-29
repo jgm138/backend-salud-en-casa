@@ -29,6 +29,7 @@ public class CategoriaController{
 
 	// -------------------All Productos---------------------------------------------
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@RequestMapping(value = "/categoria/", method = RequestMethod.GET)
 	public ResponseEntity<List<Categoria>> listAllCategorias() {
 		try {
