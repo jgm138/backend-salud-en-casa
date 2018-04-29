@@ -8,7 +8,6 @@ import com.udea.release1.entity.Producto;
 
 import com.udea.release1.repository.ProductoRepository;
 
-//@Service("productoService")
 @Service
 public class ProductoService{
 	//FALTA IMPLEMENTAR EXCEPCION GENERICA

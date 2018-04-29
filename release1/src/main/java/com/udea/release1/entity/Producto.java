@@ -1,13 +1,20 @@
 package com.udea.release1.entity;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 //import javax.persistence.JoinColumn;
 //import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name = "productos")
@@ -34,11 +41,17 @@ public class Producto {
     
     @NotNull
     private float precio;
-    /*
-    @ManyToOne
+    
+    
+    //Desde Jackson 1.6 puedes usar dos anotaciones para resolver el problema de la recursión infinita 
+    //sin ignorar a los getters / setters durante la serialización: @JsonManagedReference y @JsonBackReference
+    //Para que Jackson funcione bien, uno de los dos lados de la relación no debe ser serializado, 
+    //con el fin de evitar el bucle infite que causa su error stackoverflow.
+    @ManyToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL)//EAGER
     @JoinColumn(name="fkcategoria")
+    //@JsonBackReference
     private Categoria categoria;
-    */
+    
 
 	public Long getPkproducto() {
 		return pkproducto;
@@ -113,6 +126,23 @@ public class Producto {
 	public void setPrecio(float precio) {
 		this.precio = precio;
 	}
+
+
+	public Producto(Long pkproducto, @NotNull String producto, @NotNull String descripcion,
+			@NotNull String caracteristicas, @NotNull String volumen, @NotNull byte appmovil, @NotNull float precio,
+			Categoria categoria) {
+		super();
+		this.pkproducto = pkproducto;
+		this.producto = producto;
+		this.descripcion = descripcion;
+		this.caracteristicas = caracteristicas;
+		this.volumen = volumen;
+		this.appmovil = appmovil;
+		this.precio = precio;
+		this.categoria = categoria;
+	}
+	
+	//NO LE COLOCO EL GETTER Y SETTER DE LA RELACION PARA QUE NO HAYA UN JSON RECURSIVO INFINITO
     
 
 }
