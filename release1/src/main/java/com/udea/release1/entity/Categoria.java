@@ -1,5 +1,6 @@
 package com.udea.release1.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -15,8 +16,13 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "categorias")
-public class Categoria {
+public class Categoria implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
     @GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name = "pkcategoria")//opcional si se llama igual

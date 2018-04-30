@@ -1,5 +1,6 @@
-package com.udea.release1.controller;
+package com.udea.release1.entity;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -13,13 +14,16 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import com.udea.release1.entity.Producto;
-
 
 	@Entity
 	@Table(name = "roles")
-	public class Rol {
+	public class Rol implements Serializable{
 		
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+
 		@Id
 	    @GeneratedValue(strategy=GenerationType.AUTO)
 		@Column(name = "pkrol")//opcional si se llama igual
