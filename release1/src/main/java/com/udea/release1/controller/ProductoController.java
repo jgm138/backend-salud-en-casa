@@ -2,6 +2,7 @@ package com.udea.release1.controller;
 
 
 import java.util.List;
+import java.util.Optional;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -10,10 +11,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.udea.release1.entity.Producto;
+import com.udea.release1.exception.CustomErrorType;
+import com.udea.release1.exception.ExcepcionGenerica;
 import com.udea.release1.service.ProductoService;
 
 //crossorigin para que permita ser usado desde afuera, se pueden hacer más configuraciones. con crossorigin sin parámetros queda abierto para cualquier maquina
@@ -46,22 +50,48 @@ public class ProductoController{
 		}
 		
 	}
-/*
-	// -------------------Retrieve Single User------------------------------------------
 
-	@RequestMapping(value = "/user/{id}", method = RequestMethod.GET)
-	public ResponseEntity<?> getUser(@PathVariable("id") long id) {
-		logger.info("Fetching User with id {}", id);
-		User user = userService.findById(id);
-		if (user == null) {
-			logger.error("User with id {} not found.", id);
-			return new ResponseEntity(new CustomErrorType("User with id " + id 
-					+ " not found"), HttpStatus.NOT_FOUND);
+	// -------------------Producto por id------------------------------------------
+
+	@RequestMapping(value = "/producto/{id}", method = RequestMethod.GET)
+	public ResponseEntity<?> getProducto(@PathVariable("id") long id) {
+		logger.info("Buscando Producto con id {}", id);
+		try {			
+			Producto producto = productoService.findByCodigo(id);
+			if (producto == null) {
+				logger.error("Producto con id {} not existe.", id);
+				return new ResponseEntity(new CustomErrorType("Producto no existe"), HttpStatus.NOT_FOUND);
+				/*return new ResponseEntity(new ExcepcionGenerica("error consultando", "Producto con id: " + id 
+						+ " no existe"),"202", HttpStatus.NOT_FOUND);*/
+			}
+			return new ResponseEntity<Producto>(producto, HttpStatus.OK);
+		}catch(Exception ex) {
+			logger.error("ocurrió una excepción api/producto/{id}, el ERROR: " + ex.getMessage());
+			return new ResponseEntity(ex.getMessage(), HttpStatus.NOT_FOUND);
 		}
-		return new ResponseEntity<User>(user, HttpStatus.OK);
 	}
+	
+	// -------------------Buscar Productos por categoria------------------------------------------
 
-	// -------------------Create a User-------------------------------------------
+		@RequestMapping(value = "/producto/categoria/{categoria}", method = RequestMethod.GET)
+		public ResponseEntity<?> getProductosByCategoria(@PathVariable("categoria") long categoria) {
+			logger.info("Buscando Productos de categoria con id {}", categoria);
+			try {
+			List<Producto> productos = productoService.findByCategoria(categoria);
+			logger.info("api/producto/categoria/{categoria}");
+			if (productos.isEmpty()) {
+				return new ResponseEntity(HttpStatus.NO_CONTENT);
+				//tambièn se puede HttpStatus.NOT_FOUND
+			}
+				return new ResponseEntity<List<Producto>>(productos, HttpStatus.OK);
+			}catch(Exception ex) {
+				logger.error("ocurrió una excepción api/producto/categoria/{categoria}, el ERROR: " + ex.getMessage());
+				return new ResponseEntity(ex.getMessage(), HttpStatus.NOT_FOUND);
+			}
+		}
+
+	/*
+	// -------------------Create a Producto-------------------------------------------
 
 	@RequestMapping(value = "/user/", method = RequestMethod.POST)
 	public ResponseEntity<?> createUser(@RequestBody User user, UriComponentsBuilder ucBuilder) {

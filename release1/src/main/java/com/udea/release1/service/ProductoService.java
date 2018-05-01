@@ -1,7 +1,6 @@
 package com.udea.release1.service;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.udea.release1.entity.Producto;
@@ -17,6 +16,13 @@ public class ProductoService{
 	public List<Producto> findAllProductos(){
 		return (List<Producto>) productoRepository.findAll();
 	}
+
+	public Producto findByCodigo(long id) {
+		return productoRepository.findByCodigo(id);
+	}
 	
+	public List<Producto> findByCategoria(long categoria){
+		return productoRepository.findByCategoria_Pkcategoria(categoria);
+	}
 
 }
