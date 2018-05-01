@@ -25,4 +25,7 @@ public class ProductoService{
 		return productoRepository.findByCategoria_Pkcategoria(categoria);
 	}
 
+	public List<Producto> findByProductoLike(String producto){
+		return productoRepository.findByProductoLike(producto);
+	}
 }

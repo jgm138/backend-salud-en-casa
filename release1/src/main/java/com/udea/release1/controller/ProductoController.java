@@ -89,6 +89,26 @@ public class ProductoController{
 				return new ResponseEntity(ex.getMessage(), HttpStatus.NOT_FOUND);
 			}
 		}
+		
+		
+		// -------------------Buscar Productos por producto------------------------------------------
+
+				@RequestMapping(value = "/producto/find/{producto}", method = RequestMethod.GET)
+				public ResponseEntity<?> getProductosByProductoLike(@PathVariable("producto") String producto) {
+					logger.info("Buscando Productos por el nombre", producto);
+					try {
+					List<Producto> productos = productoService.findByProductoLike(producto);
+					logger.info("api/producto/find/{producto}");
+					if (productos.isEmpty()) {
+						return new ResponseEntity(HttpStatus.NO_CONTENT);
+						//tambièn se puede HttpStatus.NOT_FOUND
+					}
+						return new ResponseEntity<List<Producto>>(productos, HttpStatus.OK);
+					}catch(Exception ex) {
+						logger.error("ocurrió una excepción api/producto/find/{producto}, el ERROR: " + ex.getMessage());
+						return new ResponseEntity(ex.getMessage(), HttpStatus.NOT_FOUND);
+					}
+				}
 
 	/*
 	// -------------------Create a Producto-------------------------------------------

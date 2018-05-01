@@ -19,8 +19,11 @@ public interface ProductoRepository extends CrudRepository<Producto, Long>{
 	Producto findByProducto(String producto);
 	
 	//@Query("select t from Producto t where t.fkcategoria = :categoria")
-	List<Producto> findByCategoria_Pkcategoria(@Param("categoria") Long categoria);
+	List<Producto> findByCategoria_Pkcategoria(@Param("categoria") Long categoria);//el guion bajo es para objetos hijos,
 	
-	@Query("select t from Producto t where t.id = :id")
+	@Query("select p from Producto p where p.id = :id")
 	Producto findByCodigo(@Param("id") Long id);
+	
+	@Query("select p from Producto p where p.producto like %:producto%")
+	List<Producto> findByProductoLike(@Param("producto") String producto);
 }
