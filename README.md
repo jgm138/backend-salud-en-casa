@@ -1,5 +1,5 @@
 1 - Clonar el repositorio
-2- Trabajar en la rama desarrollo
+2- Trabajar en la rama
 3 - Abrir Eclipse
 4- Importar - proyecto existente Maven.
 
