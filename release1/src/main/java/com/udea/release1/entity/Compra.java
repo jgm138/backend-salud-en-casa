@@ -14,7 +14,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
@@ -55,9 +54,7 @@ public class Compra implements Serializable{
 		//@JsonManagedReference
 		private List<DetalleCompra> detallesCompra;
 	    
-	    @OneToOne(mappedBy = "compra", cascade = CascadeType.ALL, 
-	    fetch = FetchType.LAZY, optional = false)
-	    private Pago pago;
+	    
 
 		public Compra(Long pkcompra, @NotNull LocalDateTime fechaHora, @NotNull String direccion, @Null float descuento,
 				Usuario usuario) {
@@ -118,13 +115,7 @@ public class Compra implements Serializable{
 			this.detallesCompra = detallesCompra;
 		}
 
-		public Pago getPago() {
-			return pago;
-		}
-
-		public void setPago(Pago pago) {
-			this.pago = pago;
-		}
+		
 	    
 	    
 	    

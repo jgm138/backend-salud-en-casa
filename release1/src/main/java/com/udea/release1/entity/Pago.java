@@ -40,12 +40,12 @@ public class Pago implements Serializable{
 
 
 
-	public Pago(Long pkpago, @NotNull float valor, @NotNull LocalDateTime fechaHora, Compra compra) {
+	public Pago(Long pkpago, @NotNull float valor, @NotNull LocalDateTime fechaHora) {
 		super();
 		this.pkpago = pkpago;
 		this.valor = valor;
 		this.fechaHora = fechaHora;
-		this.compra = compra;
+		
 	}
 
 
@@ -93,9 +93,4 @@ public class Pago implements Serializable{
 
 
 
-	public void setCompra(Compra compra) {
-		this.compra = compra;
-	}
-	
-	
 }

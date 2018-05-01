@@ -1,5 +1,7 @@
 package com.udea.release1.repository;
 
+import java.util.List;
+
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -14,5 +16,7 @@ public interface ProductoRepository extends CrudRepository<Producto, Long>{
 
 	
 	Producto findByProducto(String producto);
+	
+	List<Producto> findByCategoria(long categoria);
 
 }
